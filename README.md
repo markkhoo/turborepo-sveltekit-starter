@@ -1,6 +1,10 @@
 # Turborepo Svelte starter
 
-This is an official starter Turborepo.
+This is built off [an official starter Turborepo](https://vercel.com/templates/svelte/turborepo-sveltekit-starter). I've added a ts-node server as an app to this mono repo. I am still trying to figure out env variables.
+
+Install [pnpm](https://pnpm.io/installation) then install packages with `'pnpm i'` in the root folder to get this running. We will be using `pnpm` instead of `npm` to install packages.
+
+To start the Apps run `'npm run dev'`.
 
 ## Using this example
 

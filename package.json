@@ -7,14 +7,12 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
+    "dotenv-cli": "^7.3.0",
     "eslint": "^8.0.0",
     "eslint-config-custom": "workspace:*",
-    "prettier": "^2.7.1",
-    "prettier-plugin-svelte": "^2.7.0",
+    "prettier": "^3.0.3",
+    "prettier-plugin-svelte": "^3.0.3",
     "turbo": "latest"
   },
-  "packageManager": "pnpm@8.6.10",
-  "dependencies": {
-    "dotenv-cli": "^7.3.0"
-  }
+  "packageManager": "pnpm@8.6.10"
 }
