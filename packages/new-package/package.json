@@ -1,0 +1,15 @@
+{
+  "name": "new-package",
+  "version": "1.0.0",
+  "description": "a test package",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "markkhoo",
+  "license": "ISC",
+  "dependencies": {
+    "eslint-config-custom": "workspace:*",
+    "svelte": "^3.9.2"
+  }
+}
