@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { TestComponent } from 'new-package'
   import { MyCounterButton } from 'ui';
 
   export let data;
@@ -14,3 +15,5 @@
 {/if}
 
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+
+<TestComponent />

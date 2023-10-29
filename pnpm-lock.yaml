@@ -88,6 +88,9 @@ importers:
 
   apps/web:
     dependencies:
+      new-package:
+        specifier: workspace:*
+        version: link:../../packages/new-package
       ui:
         specifier: workspace:*
         version: link:../../packages/ui
