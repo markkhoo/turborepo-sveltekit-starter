@@ -1,4 +1,5 @@
 {
+  "installCommand": "pnpm install",
   "ignoreCommand": "npx turbo-ignore",
   "version": 2,
   "builds": [
