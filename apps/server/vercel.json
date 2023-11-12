@@ -1,4 +1,5 @@
 {
+  "installCommand": "pnpm install",
   "ignoreCommand": "npx turbo-ignore",
   "version": 2,
   "builds": [
@@ -6,9 +7,7 @@
       "src": "src/index.ts",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": [
-          "src/**"
-        ]
+        "includeFiles": ["src/**"]
       }
     }
   ],

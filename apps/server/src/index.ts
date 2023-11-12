@@ -1,15 +1,27 @@
 import express from 'express';
 import 'dotenv/config';
 
-import { sql } from '@vercel/postgres';
+import { prisma } from '@repo/db';
 
 const app = express();
 const PORT = process.env.PORT ?? 3003;
 
+function generateRandomString(length: number) {
+  let result: string = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+}
+
+app.use(express.json());
+
 app.get('/', (req, res) => {
-  res.status(200).json({ 
+  res.status(200).json({
     message: 'Hello World!',
-    status: 'OK' 
+    status: 'OK'
   });
 });
 
@@ -17,29 +29,35 @@ app.get('/health', (req, res) => {
   return res.status(200).json({ status: 'OK' });
 });
 
-app.get('/create-pets-table', async (req, res) => {
-  // https://vercel.com/docs/storage/vercel-postgres/quickstart#create-a-table-in-your-database
-  try {
-    const result = await sql`CREATE TABLE Pets ( Name varchar(255), Owner varchar(255) );`;
-    return res.status(200).json({ result });
-  } catch (error) {
-    return res.status(500).json({ error });
-  }
+app.get('/users', async (req, res) => {
+  const users = await prisma.user.findMany();
+  return res.status(200).json({ users });
 });
 
-app.get('/add-pet', async (req, res) => {
-  // https://vercel.com/docs/storage/vercel-postgres/quickstart#add-data-to-your-table
-  try {
-    const petName = req.query.petName as string;
-    const ownerName = req.query.ownerName as string;
-    if (!petName || !ownerName) throw new Error('Pet and owner names required');
-    await sql`INSERT INTO Pets (Name, Owner) VALUES (${petName}, ${ownerName});`;
-  } catch (error) {
-    return res.status(500).json({ error });
-  }
+app.post('/users', async (req, res) => {
+  if (!req.body) return res.status(400).json({ error: 'Missing body' });
 
-  const pets = await sql`SELECT * FROM Pets;`;
-  return res.status(200).json({ pets });
+  const { name, email } = req.body;
+
+  if (!name || !email) return res.status(400).json({ error: 'Missing name or email' });
+
+  try {
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email,
+        image: generateRandomString(16)
+      }
+    });
+    return res.status(200).json({ user });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error);
+      return res.status(500).json({ error: error.message });
+    } else {
+      return res.status(500).json({ error });
+    }
+  }
 });
 
 app.listen(PORT, () => {
